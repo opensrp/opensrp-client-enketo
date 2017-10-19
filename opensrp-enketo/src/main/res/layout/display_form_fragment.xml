@@ -1,22 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <org.smartregister.view.customcontrols.OpenSRPWebView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:windowSoftInputMode="adjustResize"
-        android:id="@+id/webview">
-    </org.smartregister.view.customcontrols.OpenSRPWebView>
+    <org.smartregister.enketo.view.customcontrols.EnketoWebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:windowSoftInputMode="adjustResize" />
 
     <ProgressBar
+        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:visibility="visible"
-        android:layout_centerHorizontal="true" />
+        android:visibility="visible" />
 
 </RelativeLayout>

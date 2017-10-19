@@ -55,6 +55,7 @@ public class DisplayFormFragment extends Fragment {
     private boolean javascriptLoaded = false;
     private JSONObject fieldOverides = new JSONObject();
     private DisplayFormListener listener;
+    private boolean resize;
 
     public boolean isFormPartialSaving() {
         return formPartialSaving;
@@ -104,6 +105,14 @@ public class DisplayFormFragment extends Fragment {
 
     public void setListener(DisplayFormListener listener) {
         this.listener = listener;
+    }
+
+    public boolean isResize() {
+        return resize;
+    }
+
+    public void setResize(boolean resize) {
+        this.resize = resize;
     }
 
     @Override
@@ -288,6 +297,9 @@ public class DisplayFormFragment extends Fragment {
     }
 
     private void resizeForm() {
+        if (!resize) {
+            return;
+        }
 
         getActivity().runOnUiThread(new Runnable() {
             @Override

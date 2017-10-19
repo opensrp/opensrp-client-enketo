@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:1.2.3"
+        classpath 'com.android.tools.build:gradle:2.3.3'
     }
 }
 
@@ -11,7 +11,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "org.smartregister.enketo.sample"
@@ -64,9 +64,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile('com.android.support:design:22.2.1') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
-
     }
 
     compile project(':opensrp-enketo')
-
 }

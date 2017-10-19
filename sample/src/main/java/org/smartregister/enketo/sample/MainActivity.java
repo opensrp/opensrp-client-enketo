@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements DisplayFormListener {
 
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements DisplayFormListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,8 +49,7 @@ public class MainActivity extends AppCompatActivity implements DisplayFormListen
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startFormActivity("new_household_registration", "1", null);
             }
         });
 
@@ -91,13 +94,37 @@ public class MainActivity extends AppCompatActivity implements DisplayFormListen
     @Override
     public void saveFormSubmission(String formSubmision, String id, String formName, JSONObject fieldOverrides) {
         Toast.makeText(this, formName + " submitted", Toast.LENGTH_SHORT).show();
-        switchToBaseFragment(formSubmision); 
+        switchToBaseFragment(formSubmision);
 
     }
 
     @Override
     public void savePartialFormData(String formData, String id, String formName, JSONObject fieldOverrides) {
         Toast.makeText(this, formName + " partially submitted", Toast.LENGTH_SHORT).show();
+    }
+
+    public void startFormActivity(String formName, String entityId, String metaData) {
+        try {
+            int formIndex = getIndexForFormName(formName, formNames) + 1; // add the offset
+            if (entityId != null || metaData != null) {
+                String data = null;
+
+                DisplayFormFragment displayFormFragment = getDisplayFormFragmentAtIndex(formIndex);
+                if (displayFormFragment != null) {
+                    displayFormFragment.setFormData(data);
+                    displayFormFragment.setRecordId(entityId);
+                    displayFormFragment.setFieldOverides(metaData);
+                    displayFormFragment.setListener(this);
+                    displayFormFragment.setResize(false);
+                }
+            }
+
+            mPager.setCurrentItem(formIndex, false); //Don't animate the view on orientation change the view disapears
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private String[] buildFormNameList() {
@@ -134,6 +161,16 @@ public class MainActivity extends AppCompatActivity implements DisplayFormListen
 
     private DisplayFormFragment getDisplayFormFragmentAtIndex(int index) {
         return (DisplayFormFragment) findFragmentByPosition(index);
+    }
+
+    private int getIndexForFormName(String formName, String[] formNames) {
+        for (int i = 0; i < formNames.length; i++) {
+            if (formName.equalsIgnoreCase(formNames[i])) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
 
