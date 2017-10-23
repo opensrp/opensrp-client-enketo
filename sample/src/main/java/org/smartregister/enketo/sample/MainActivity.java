@@ -172,5 +172,5 @@ public class MainActivity extends AppCompatActivity implements DisplayFormListen
 
         return -1;
     }
-    
+
 }
