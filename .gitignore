@@ -17,6 +17,6 @@ project.properties
 .settings
 build/
 .gradle
-!opensrp-enketo/assets/web/build/
-!opensrp-enketo/assets/web/lib/enketo-core/build/
+!opensrp-enketo/src/main/assets/web/build/
+!opensrp-enketo/src/main/assets/web/lib/enketo-core/build/
 opensrp-enketo/reports/
