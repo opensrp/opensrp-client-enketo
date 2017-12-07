@@ -237,7 +237,7 @@ public class DisplayFormFragment extends Fragment {
             @Override
             public void run() {
                 if (progressDialog.isShowing()) {
-                    progressDialog.hide();
+                    progressDialog.dismiss();
                 }
             }
         });
