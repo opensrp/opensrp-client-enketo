@@ -450,5 +450,13 @@ public class DisplayFormFragment extends Fragment {
             //((SecuredNativeSmartRegisterActivity)getActivity()).savePartialFormData
             // (partialData, recordId, formName, getFormFieldsOverrides());
         }
+
+        @JavascriptInterface
+        public void onFormClosed() {
+            showTranslucentProgressDialog();
+            if (listener != null) {
+                listener.onFormClosed(recordId, formName);
+            }
+        }
     }
 }

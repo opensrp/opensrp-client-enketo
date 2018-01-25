@@ -101,6 +101,13 @@ public class MainActivity extends AppCompatActivity implements DisplayFormListen
         Toast.makeText(this, formName + " partially submitted", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onFormClosed(String recordId, String formName) {
+        Toast.makeText(this, formName + " closed", Toast.LENGTH_SHORT).show();
+        switchToBaseFragment(null);
+    }
+
+
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             int formIndex = getIndexForFormName(formName, formNames) + 1; // add the offset
