@@ -99,6 +99,12 @@ window.loadDraft = function(xmlDataString){
     initializeForm();
 }
 
+window.setFormReadOnly = function(){
+    $("form :input").prop("disabled", true);
+    Android.log("Form Inputs set Readonly");
+}
+
+
 window.savePartialData = function(){
 	Android.savePartialFormData(form.getDataStr());
 }
