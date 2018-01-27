@@ -13,4 +13,6 @@ public interface DisplayFormListener {
 
     void savePartialFormData(String formData, String id, String formName, JSONObject
             fieldOverrides);
+
+    void onFormClosed(String recordId, String formName);
 }

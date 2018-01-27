@@ -2,12 +2,10 @@ package org.smartregister.enketo.sample;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -103,6 +101,13 @@ public class MainActivity extends AppCompatActivity implements DisplayFormListen
         Toast.makeText(this, formName + " partially submitted", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onFormClosed(String recordId, String formName) {
+        Toast.makeText(this, formName + " closed", Toast.LENGTH_SHORT).show();
+        switchToBaseFragment(null);
+    }
+
+
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             int formIndex = getIndexForFormName(formName, formNames) + 1; // add the offset
@@ -116,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements DisplayFormListen
                     displayFormFragment.setFieldOverides(metaData);
                     displayFormFragment.setListener(this);
                     displayFormFragment.setResize(false);
+                    displayFormFragment.displayFormAsReadonly();
                 }
             }
 

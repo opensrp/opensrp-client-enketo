@@ -266,6 +266,23 @@ public class DisplayFormFragment extends Fragment {
         }).start();
     }
 
+    public void displayFormAsReadonly() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Wait for the page to initialize
+                    while (!javascriptLoaded) {
+                        Thread.sleep(100);
+                    }
+                    setFormReadonly();
+                } catch (Exception e) {
+                    Log.e(TAG, e.toString(), e);
+                }
+            }
+        }).start();
+    }
+
     private void postXmlDataToForm(final String data) {
         webView.post(new Runnable() {
             @Override
@@ -273,6 +290,15 @@ public class DisplayFormFragment extends Fragment {
                 formData = data.replaceAll("template=\"\"", "");
                 webView.loadUrl("javascript:loadDraft('" + formData + "')");
                 Log.d("posting data", data);
+            }
+        });
+    }
+
+    private void setFormReadonly() {
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl("javascript:setFormReadOnly()");
             }
         });
     }
@@ -423,6 +449,14 @@ public class DisplayFormFragment extends Fragment {
             //Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
             //((SecuredNativeSmartRegisterActivity)getActivity()).savePartialFormData
             // (partialData, recordId, formName, getFormFieldsOverrides());
+        }
+
+        @JavascriptInterface
+        public void onFormClosed() {
+            showTranslucentProgressDialog();
+            if (listener != null) {
+                listener.onFormClosed(recordId, formName);
+            }
         }
     }
 }
