@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements DisplayFormListen
                     displayFormFragment.setFieldOverides(metaData);
                     displayFormFragment.setListener(this);
                     displayFormFragment.setResize(false);
-                    displayFormFragment.displayFormAsReadonly();
+                    //displayFormFragment.displayFormAsReadonly();
                 }
             }
 

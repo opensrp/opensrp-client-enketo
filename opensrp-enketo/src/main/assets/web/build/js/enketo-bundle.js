@@ -34516,7 +34516,7 @@ define( function( require, exports, module ) {
                 return !( $node.prop( 'disabled' ) || $node.parentsUntil( '.or', '.disabled' ).length > 0 );
             },
             isRequired: function( $node ) {
-                return ( $node.attr( 'required' ) !== undefined && $node.parentsUntil( '.or', '.or-appearance-label' ).length === 0 );
+                return ( ($node.attr( 'required' ) !== undefined || $node.attr( 'data-required' ) !== undefined) && $node.parentsUntil( '.or', '.or-appearance-label' ).length === 0 );
             },
             getVal: function( $node ) {
                 var inputType, values = [],
