@@ -1,22 +1,25 @@
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:1.2.3"
+        classpath "com.android.tools.build:gradle:3.1.2"
+        classpath 'org.robolectric:robolectric-gradle-plugin:1.1.0'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
     }
 }
 
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "org.smartregister.enketo.sample"
         minSdkVersion 18
-        targetSdkVersion 21
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -24,7 +27,6 @@ android {
 
 
     dexOptions {
-        incremental = true
         preDexLibraries = false
         javaMaxHeapSize "4g"
     }
@@ -59,13 +61,18 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile('com.android.support:design:22.2.1') {
+
+    implementation('com.android.support:design:27.1.1') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude module: 'support-v4'
         exclude module: 'multidex'
     }
 
-    compile project(':opensrp-enketo')
+    implementation project(':opensrp-enketo')
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    annotationProcessor fileTree(include: ['butterknife*.jar'], dir: 'libs')
+
+    testImplementation 'junit:junit:4.12'
+
 }
